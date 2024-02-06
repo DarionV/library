@@ -1,0 +1,151 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--textColorBlack);
+}
+:root{
+    box-sizing: border-box;
+    font-size: 18px;
+    --headerHeight: 60px;
+    --textColorBlack: #282828;
+}
+
+body{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2F2F2;
+}
+
+.title-container{
+    display: flex;
+    height: 14vh;
+    align-items: end;
+}
+.title-container div{
+    flex: 1;
+}
+
+.title-container div:last-child {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.title-container h2{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.js-add-book-btn{
+    width: 160px;
+    height: 40px;
+    border: none;
+    background-color:unset;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.content{
+    /* border: 1px solid red; */
+    height: calc(100vh - var(--headerHeight) * 2);
+    width: 70vw;
+}
+
+header{
+    height: var(--headerHeight);
+    width: 100vw;
+    display: flex;
+    justify-content: end;
+    padding-right: 60px;
+}
+
+.js-theme-btn{
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+    margin: 0px 12px;
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+footer{
+    height: var(--headerHeight);
+    font-size: 0.8rem;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+}
+
+.library-container{
+    /* border: 2px solid blue; */
+}
+
+.empty-message-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 3px solid green; */
+    height: 70vh;
+}
+
+.empty-message-container div {
+    flex: 1;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.empty-message-container div:nth-child(2){
+    translate: 0px 0px;
+}
+
+.font-size-big{
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.font-size-medium{
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.font-size-regular{
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+
+
+.circle-add-btn{
+    background-image: url(images/plus-circle.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: unset;
+    border: none;
+    height: 48px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.circle-add-btn:hover{
+    scale: 105%;
+}
+
+.example-button{
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+
+.example-button:hover{
+    text-decoration: underline;
+}
+
+.medium-bold {
+    font-weight: 500;
+}
