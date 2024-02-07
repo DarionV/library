@@ -18,7 +18,15 @@ function Book() {
 }
 
 const myBook = new Book();
+const myBook2 = new Book();
 renderBook(myBook);
+renderBook(myBook2);
+
+
+function toggleHasReadStatus(book){
+    book.read ? book.read = false : book.read = true;
+    console.log(book.read);
+}
 
 
 function renderBook(book){
@@ -30,10 +38,16 @@ function renderBook(book){
     titleDiv.textContent = book.title;
 
     const checkMark = document.createElement('img');
-    checkMark.src = "images/check-circle.svg"
+    checkMark.src = "images/check_gray.svg"
     checkMark.width = 32;
     checkMark.height = 32;
+
     checkMark.classList.add('check-mark');
+    checkMark.addEventListener('click', ()=>{
+        toggleHasReadStatus(book);
+        if(book.read) checkMark.src = "images/check_green.svg";
+        else checkMark.src = "images/check_gray.svg";
+    });
     titleDiv.appendChild(checkMark);
 
     const authorDiv = document.createElement('div');
