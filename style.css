@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
-    color: var(--textColorBlack);
 }
 :root{
     box-sizing: border-box;
@@ -17,6 +16,7 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: #F2F2F2;
+    color: var(--textColorBlack);
 }
 
 .title-container{
@@ -40,13 +40,17 @@ body{
     font-weight: 500;
 }
 
-.js-add-book-btn{
+.add-book-btn{
     width: 160px;
     height: 40px;
     border: none;
     background-color:unset;
     cursor: pointer;
     font-size: 1rem;
+}
+
+.add-book-btn:hover{
+    text-decoration: underline;
 }
 
 .content{
@@ -63,7 +67,7 @@ header{
     padding-right: 60px;
 }
 
-.js-theme-btn{
+.theme-btn{
     border: none;
     background-color: unset;
     cursor: pointer;
@@ -132,8 +136,18 @@ footer{
     cursor: pointer;
 }
 
-.circle-add-btn:hover{
-    scale: 105%;
+.add-first-book-btn{
+    height: 48px;
+    padding: 12px;
+    border-radius: 100px;
+    background-color: rgb(83, 158, 85);
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.add-first-book-btn:hover{
+    background-color: rgb(125, 172, 126);
 }
 
 .example-button{
