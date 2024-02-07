@@ -1,6 +1,8 @@
 const libraryContainer = document.querySelector('.js-grid-container');
+const markAsReadBox = document.querySelector('.js-mark-as-read');
 
 const MAX_RATING = 5;
+const MARK_READ_OFFSET = 32;
 
 
 const myLibrary = [];
@@ -28,6 +30,10 @@ function toggleHasReadStatus(book){
     console.log(book.read);
 }
 
+function updateToolTipText(book){
+    if(book.read) markAsReadBox.textContent = 'Mark as unread';
+    else markAsReadBox.textContent = 'Mark as read';
+}
 
 function renderBook(book){
     const card = document.createElement('div');
@@ -47,7 +53,20 @@ function renderBook(book){
         toggleHasReadStatus(book);
         if(book.read) checkMark.src = "images/check_green.svg";
         else checkMark.src = "images/check_gray.svg";
+        updateToolTipText(book);
     });
+    checkMark.addEventListener('mouseover',()=>{
+        markAsReadBox.style.visibility = "visible";
+        const rect = checkMark.getBoundingClientRect();
+        const markReadRect = markAsReadBox.getBoundingClientRect();
+        markAsReadBox.style.left = rect.left + rect.width / 2 - markReadRect.width / 2 + 'px';
+        markAsReadBox.style.top = rect.top - MARK_READ_OFFSET  + 'px';
+        updateToolTipText(book);
+        
+    })
+    checkMark.addEventListener('mouseleave',()=>{
+        markAsReadBox.style.visibility = "hidden";
+    })
     titleDiv.appendChild(checkMark);
 
     const authorDiv = document.createElement('div');
@@ -74,4 +93,8 @@ function renderBook(book){
     card.appendChild(deleteDiv);
 
     libraryContainer.appendChild(card);
+
+    deleteDiv.addEventListener('click', ()=>{
+        libraryContainer.removeChild(card);
+    })
 }

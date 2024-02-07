@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
                 <button class="add-book-btn">Add new book +</button>
             </div>
         </div>
-        <div class="library-container">
+        <div class="library-container js-library">
 
             <!-- only shows when library is empty -->
             <div class="empty-message-container js-empty-message hidden">
@@ -43,8 +43,10 @@
             </div>
             <!-- -------------------------------- -->
 
-            <div class="grid-container">
-                <div class="card">
+            <div class="mark-as-read js-mark-as-read font-size-small">Mark as read</div>
+
+            <div class="grid-container js-grid-container">
+                <!-- <div class="card">
                     <div class="bold">
                         Frankenstein
                         <img src="images/check-circle.svg" alt="check mark" height="32px" width="32px" class="check-mark">
@@ -58,37 +60,7 @@
                         <img src="images/star.svg" alt="grey-star" width="24px" height="24px">
                     </div>
                     <div class="font-size-small faded">Delete</div>
-                </div>
-                <div class="card">
-                    <div>Title</div>
-                    <div>Author</div>
-                    <div>Rating</div>
-                    <div>Delete</div>
-                </div>
-                <div class="card">
-                    <div>Title</div>
-                    <div>Author</div>
-                    <div>Rating</div>
-                    <div>Delete</div>
-                </div>
-                <div class="card">
-                    <div>Title</div>
-                    <div>Author</div>
-                    <div>Rating</div>
-                    <div>Delete</div>
-                </div>
-                <div class="card">
-                    <div>Title</div>
-                    <div>Author</div>
-                    <div>Rating</div>
-                    <div>Delete</div>
-                </div>
-                <div class="card">
-                    <div>Title</div>
-                    <div>Author</div>
-                    <div>Rating</div>
-                    <div>Delete</div>
-                </div>
+                </div> -->
             </div>
 
         </div>
