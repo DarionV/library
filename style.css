@@ -231,9 +231,6 @@ footer{
 
 .check-mark{
     margin-left: auto;
-}
-
-.card img {
     cursor: pointer;
 }
 
@@ -317,8 +314,6 @@ footer{
 .star-container{
     height: min-content;
     width: 180px;
-    margin-top: 12px;
-    margin-bottom: 24px;
 }
 
 .star.gold ~ img{

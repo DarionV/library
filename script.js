@@ -82,6 +82,13 @@ function hideModal(){
 }
 
 function showModal(){
+    authorInput.value = "";
+    titleInput.value = "";
+    hasReadRadioButton.checked = true;
+    const stars = starContainer.childNodes;
+    stars.forEach((star)=>{
+        star.classList.add('no-rating');
+    });
     modal.style.visibility = 'visible';
 }
 
