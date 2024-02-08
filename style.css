@@ -231,6 +231,9 @@ footer{
 
 .check-mark{
     margin-left: auto;
+}
+
+.card img {
     cursor: pointer;
 }
 

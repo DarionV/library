@@ -3,7 +3,10 @@ const markAsReadBox = document.querySelector('.js-mark-as-read');
 const modal = document.querySelector('.js-modal');
 const deleteButton = document.querySelector('.js-delete-btn');
 const addBookButton = document.querySelector('.js-add-book-btn');
-
+const form = document.querySelector('form');
+const titleInput = document.querySelector('#title');
+const authorInput = document.querySelector('#author');
+const hasReadRadioButton = document.querySelector('#radio-yes');
 
 const star1 = document.querySelector('#star-1');
 const star2 = document.querySelector('#star-2');
@@ -22,22 +25,14 @@ let hasSelectedRating = false;
 
 const myLibrary = [];
 
-function Book(title, author) {
+function Book(title, author, readStatus, starContainer) {
     this.title = title;
     this.author = author;
-    this.rating = 3;
-    this.read = false;
-    this.info = function () {
-        let readStatus = "";
-        this.read ? readStatus = ", read." : readStatus = ", not yet read.";
-        return this.title + " by " + this.author + readStatus;
-    };
+    this.rating = selectedRating;
+    this.read = readStatus;
+    this.starContainer = starContainer;
 }
 
-const myBook = new Book('Frankenstein', 'Mary Shelley');
-const myBook2 = new Book('Dracula', 'Author name');
-renderBook(myBook);
-renderBook(myBook2);
 
 function updateStars(){
     starArray.forEach((star)=>{
@@ -75,6 +70,13 @@ deleteButton.addEventListener('click', hideModal);
 
 addBookButton.addEventListener('click', showModal);
 
+form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const newBook = new Book(titleInput.value, authorInput.value, hasReadRadioButton.checked, starContainer);
+    renderBook(newBook);
+    hideModal();
+});
+
 function hideModal(){
     modal.style.visibility = 'hidden';
 }
@@ -103,7 +105,8 @@ function renderBook(book){
     titleDiv.textContent = book.title;
 
     const checkMark = document.createElement('img');
-    checkMark.src = "images/check_gray.svg"
+    if(book.read) checkMark.src = "images/check_green.svg";
+    else checkMark.src = "images/check_gray.svg";
     checkMark.width = 32;
     checkMark.height = 32;
 
@@ -136,15 +139,22 @@ function renderBook(book){
     card.appendChild(authorDiv);
 
     //render stars
-    const starDiv = document.createElement('div');
-    for(let i = 0; i < MAX_RATING; i++){
-        const star = document.createElement('img');
-        star.src = "images/star.svg";
-        star.width = 24;
-        star.height = 24;
-        starDiv.appendChild(star);
-    }
-    card.appendChild(starDiv);
+    // const starDiv = document.createElement('div');
+    // for(let i = 0; i < MAX_RATING; i++){
+    //     const star = document.createElement('img');
+    //     star.src = "images/star.svg";
+    //     star.width = 24;
+    //     star.height = 24;
+    //     starDiv.appendChild(star);
+    // }
+
+    // card.appendChild(starDiv);
+
+    // const newStarContainer = starContainer;
+    const newStarContainer = starContainer.cloneNode(deep='true');
+    card.appendChild(newStarContainer);
+
+    // card.appendChild(newStarContainer);
 
     const deleteDiv = document.createElement('div');
     deleteDiv.classList.add('font-size-small', 'faded');
