@@ -1,15 +1,30 @@
 const libraryContainer = document.querySelector('.js-grid-container');
 const markAsReadBox = document.querySelector('.js-mark-as-read');
+const modal = document.querySelector('.js-modal');
+const deleteButton = document.querySelector('.js-delete-btn');
+const addBookButton = document.querySelector('.js-add-book-btn');
+
+
+const star1 = document.querySelector('#star-1');
+const star2 = document.querySelector('#star-2');
+const star3 = document.querySelector('#star-3');
+const star4 = document.querySelector('#star-4');
+const star5 = document.querySelector('#star-5');
+const starContainer = document.querySelector('.star-container');
 
 const MAX_RATING = 5;
 const MARK_READ_OFFSET = 32;
 
+let selectedRating = 0;
+
+let hasSelectedRating = false;
+
 
 const myLibrary = [];
 
-function Book() {
-    this.title = "Frankenstein";
-    this.author = "Mary Shelley";
+function Book(title, author) {
+    this.title = title;
+    this.author = author;
     this.rating = 3;
     this.read = false;
     this.info = function () {
@@ -19,10 +34,54 @@ function Book() {
     };
 }
 
-const myBook = new Book();
-const myBook2 = new Book();
+const myBook = new Book('Frankenstein', 'Mary Shelley');
+const myBook2 = new Book('Dracula', 'Author name');
 renderBook(myBook);
 renderBook(myBook2);
+
+function updateStars(){
+    starArray.forEach((star)=>{
+        star.classList.remove('gold');
+    })
+}
+
+// Generate stars in modal box
+let starArray = [];
+
+for (let i = 1; i <= MAX_RATING; i++){
+    const newStar = document.createElement('img');
+    newStar.src = 'images/star_gold.svg';
+    newStar.height = 32;
+    newStar.width = 32;
+    newStar.classList.add('star', 'no-rating');
+
+    starArray.push(newStar);
+
+    newStar.addEventListener('click', ()=>{
+        updateStars();
+        selectedRating = i;
+        newStar.classList.add('gold')
+        starArray.forEach((star)=>{
+            star.classList.remove('no-rating')
+        })
+    });
+
+    starContainer.appendChild(newStar);
+}
+
+updateStars();
+
+deleteButton.addEventListener('click', hideModal);
+
+addBookButton.addEventListener('click', showModal);
+
+function hideModal(){
+    modal.style.visibility = 'hidden';
+}
+
+function showModal(){
+    modal.style.visibility = 'visible';
+}
 
 
 function toggleHasReadStatus(book){
