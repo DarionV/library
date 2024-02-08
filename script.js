@@ -25,12 +25,11 @@ let hasSelectedRating = false;
 
 const myLibrary = [];
 
-function Book(title, author, readStatus, starContainer) {
+function Book(title, author, readStatus) {
     this.title = title;
     this.author = author;
     this.rating = selectedRating;
     this.read = readStatus;
-    this.starContainer = starContainer;
 }
 
 
@@ -72,7 +71,7 @@ addBookButton.addEventListener('click', showModal);
 
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
-    const newBook = new Book(titleInput.value, authorInput.value, hasReadRadioButton.checked, starContainer);
+    const newBook = new Book(titleInput.value, authorInput.value, hasReadRadioButton.checked);
     renderBook(newBook);
     hideModal();
 });
@@ -82,6 +81,7 @@ function hideModal(){
 }
 
 function showModal(){
+    selectedRating = 0;
     authorInput.value = "";
     titleInput.value = "";
     hasReadRadioButton.checked = true;
@@ -145,6 +145,38 @@ function renderBook(book){
     card.appendChild(titleDiv);
     card.appendChild(authorDiv);
 
+
+    // Generate stars in modal box
+let starArray = [];
+const container = document.createElement('div');
+for (let i = 1; i <= MAX_RATING; i++){
+    const newStar = document.createElement('img');
+    newStar.src = 'images/star_gold.svg';
+    newStar.height = 32;
+    newStar.width = 32;
+
+    if(i === selectedRating) newStar.classList.add('star', 'gold');
+    else newStar.classList.add('star');
+
+    if(selectedRating === 0) newStar.classList.add('no-rating');
+
+    starArray.push(newStar);
+
+    newStar.addEventListener('click', ()=>{
+        starArray.forEach((star)=>{
+            star.classList.remove('gold');
+        })
+        starArray.forEach((star)=>{
+            star.classList.remove('no-rating');
+        })
+        selectedRating = i;
+        newStar.classList.add('gold')
+        
+    });
+    container.appendChild(newStar);
+    card.appendChild(container);
+}
+
     //render stars
     // const starDiv = document.createElement('div');
     // for(let i = 0; i < MAX_RATING; i++){
@@ -158,8 +190,8 @@ function renderBook(book){
     // card.appendChild(starDiv);
 
     // const newStarContainer = starContainer;
-    const newStarContainer = starContainer.cloneNode(deep='true');
-    card.appendChild(newStarContainer);
+    // const newStarContainer = starContainer.cloneNode(deep='true');
+    // card.appendChild(newStarContainer);
 
     // card.appendChild(newStarContainer);
 
