@@ -22,8 +22,24 @@ let selectedRating = 0;
 
 let hasSelectedRating = false;
 
+const BLUE = '#7AA4CB';
+const ORANGE = '#CB927A';
+const YELLOW = '#CBA67A';
+const GREEN = '#7ACB87';
+const PURPLE = '#B17ACB';
+const RED = '#CB7A7A';
+let colorIndex = 0;
+
 
 const myLibrary = [];
+const colors = [BLUE, ORANGE, GREEN, PURPLE, YELLOW, RED];
+
+function getColor(){
+    if(colorIndex >= colors.length) colorIndex = 0;
+    colorIndex ++;
+    return colors[colorIndex];
+}
+
 
 function Book(title, author, readStatus) {
     this.title = title;
@@ -205,9 +221,13 @@ for (let i = 1; i <= MAX_RATING; i++){
     deleteDiv.textContent = 'Delete'
     card.appendChild(deleteDiv);
 
+    card.style.border = '2px solid' + getColor();
+
     libraryContainer.appendChild(card);
 
     deleteDiv.addEventListener('click', ()=>{
         libraryContainer.removeChild(card);
     })
+
+    
 }
