@@ -6,7 +6,7 @@
 :root{
     font-size: 18px;
     --headerHeight: 60px;
-    --titleContainerHeight: 14vh;
+    /* --titleContainerHeight: 14vh; */
     --textColorBlack: #282828;
 }
 
@@ -89,7 +89,7 @@ footer{
 }
 
 .library-container{
-    flex: 4;
+    flex: 9;
     overflow: scroll;
 }
 
@@ -242,15 +242,23 @@ footer{
     background-color: unset;
     border: none;
     cursor: pointer;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: min-content;
+}
+.card>textarea{
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    width: min-content;
+    height: max-content;
+    resize: none;
 }
 
 .card>input:focus{
     outline: none;
 }
 
-.card>input:first-of-type{
+.card>textarea:first-of-type{
    margin-top: -30px;
 }
 

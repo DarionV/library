@@ -9,6 +9,7 @@ const authorInput = document.querySelector('#author');
 const hasReadRadioButton = document.querySelector('#radio-yes');
 const emptyLibraryContainer = document.querySelector('.js-empty-message');
 const addFirstBookButton = document.querySelector('.js-add-first-book-btn');
+const exampleButton = document.querySelector('.js-example-button');
 
 const star1 = document.querySelector('#star-1');
 const star2 = document.querySelector('#star-2');
@@ -33,6 +34,51 @@ const RED = '#CB7A7A';
 let colorIndex = 0;
 
 let numberOfBooksInLibrary = 0;
+
+const exampleLibraryArray = [
+    {
+        title: 'Wuthering Heights',
+        author: 'Emily bronte',
+        rating: 0,
+        read: false,
+    },
+    {
+        title: 'Frankenstein',
+        author: 'Mary Shelley',
+        rating: 3,
+        read: true,
+    },
+    {
+        title: 'Moby Dick',
+        author: 'Herman Melville',
+        rating: 2,
+        read: true,
+    },
+    {
+        title: 'Pride and Prejudice',
+        author: 'Jane Austen',
+        rating: 0,
+        read: false,
+    },
+    {
+        title: 'The Great Gatsby',
+        author: 'F. Scott Fitzgerald ',
+        rating: 3,
+        read: true,
+    },
+    {
+        title: 'The Count of Monte Cristo',
+        author: 'Alexandre Dumas',
+        rating: 4,
+        read: true,
+    },
+    {
+        title: 'The Time Machine',
+        author: 'H. G. Wells',
+        rating: 4,
+        read: true,
+    },
+];
 
 const myLibrary = [];
 const colors = [BLUE, ORANGE, GREEN, PURPLE, YELLOW, RED];
@@ -60,10 +106,10 @@ function hideEmptyMessage(){
 }
 
 
-function Book(title, author, readStatus) {
+function Book(title, author, rating, readStatus) {
     this.title = title;
     this.author = author;
-    this.rating = selectedRating;
+    this.rating = rating;
     this.read = readStatus;
 }
 
@@ -102,6 +148,8 @@ updateStars();
 hideModal();
 hideAddBookButton();
 
+exampleButton.addEventListener('click', loadExampleLibrary);
+
 deleteButton.addEventListener('click', hideModal);
 
 addBookButton.addEventListener('click', showModal);
@@ -110,7 +158,7 @@ addFirstBookButton.addEventListener('click', showModal);
 
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
-    const newBook = new Book(titleInput.value, authorInput.value, hasReadRadioButton.checked);
+    const newBook = new Book(titleInput.value, authorInput.value, selectedRating, hasReadRadioButton.checked);
     renderBook(newBook);
     hideModal();
 });
@@ -154,18 +202,16 @@ function renderBook(book){
     const card = document.createElement('div');
     card.classList.add('card');
 
-    const titleDiv = document.createElement('input');
-    titleDiv.value = book.title;
+    const titleDiv = document.createElement('div');
+    titleDiv.textContent = book.title;
     titleDiv.classList.add('bold', 'font-size-regular');
-    titleDiv.setAttribute('onclick', 'this.select()');
+    // titleDiv.setAttribute('onclick', 'this.select()');
 
     const checkMark = document.createElement('img');
     if(book.read) checkMark.src = "images/check_green.svg";
     else checkMark.src = "images/check_gray.svg";
     checkMark.width = 32;
     checkMark.height = 32;
-
-    const checkMarkDiv = document.createElement('div');
 
     checkMark.classList.add('check-mark');
     checkMark.addEventListener('click', ()=>{
@@ -186,13 +232,11 @@ function renderBook(book){
     checkMark.addEventListener('mouseleave',()=>{
         markAsReadBox.style.visibility = "hidden";
     })
-    checkMarkDiv.appendChild(checkMark);
-    card.appendChild(checkMarkDiv);
+    titleDiv.appendChild(checkMark);
 
-    const authorDiv = document.createElement('input');
+    const authorDiv = document.createElement('div');
     authorDiv.classList.add('font-size-small', 'faded');
-    authorDiv.setAttribute('onclick', 'this.select()');
-    authorDiv.value = book.author;
+    authorDiv.textContent = book.author;
 
     card.appendChild(titleDiv);
     card.appendChild(authorDiv);
@@ -207,10 +251,10 @@ for (let i = 1; i <= MAX_RATING; i++){
     newStar.height = 32;
     newStar.width = 32;
 
-    if(i === selectedRating) newStar.classList.add('star', 'gold');
+    if(i === book.rating) newStar.classList.add('star', 'gold');
     else newStar.classList.add('star');
 
-    if(selectedRating === 0) newStar.classList.add('no-rating');
+    if(book.rating === 0) newStar.classList.add('no-rating');
 
     starArray.push(newStar);
 
@@ -221,7 +265,7 @@ for (let i = 1; i <= MAX_RATING; i++){
         starArray.forEach((star)=>{
             star.classList.remove('no-rating');
         })
-        selectedRating = i;
+        book.rating = i;
         newStar.classList.add('gold')
         
     });
@@ -254,8 +298,6 @@ for (let i = 1; i <= MAX_RATING; i++){
 
     card.style.border = '2px solid' + getColor();
 
-    libraryContainer.appendChild(card);
-
     deleteDiv.addEventListener('click', ()=>{
         libraryContainer.removeChild(card);
         numberOfBooksInLibrary --;
@@ -264,5 +306,15 @@ for (let i = 1; i <= MAX_RATING; i++){
 
     hideEmptyMessage();
     numberOfBooksInLibrary ++;
+
+    if(numberOfBooksInLibrary === 1)  libraryContainer.appendChild(card);
+    else  libraryContainer.prepend(card);
     
+}
+
+function loadExampleLibrary(){
+    exampleLibraryArray.forEach((book)=>{
+        const newBoook = new Book(book.title, book.author, book.rating, book.read);
+        renderBook(newBoook);
+    });
 }
