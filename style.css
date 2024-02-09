@@ -24,6 +24,7 @@ body{
     /* height: var(--titleContainerHeight); */
     flex: 1;
     align-items: end;
+    margin-bottom: 40px;
     /* border: 2px solid green; */
 }
 .title-container div{
@@ -184,7 +185,7 @@ footer{
 }
 
 .grid-container{
-    margin-top: 64px;
+    /* margin-top: 64px; */
     /* border: 1px solid red; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -208,13 +209,24 @@ footer{
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.22);
 }
 
+.card:last-of-type{
+    justify-self: start;
+}
+.card:first-of-type{
+    justify-self: end;
+}
+.card:only-of-type{
+    justify-self: center;
+}
+
+
 /* .card:hover{
     scale: 101%;
     cursor: pointer;
 } */
 
 .card div:nth-child(2){
-    margin-top: -6px;
+    /* margin-top: -6px; */
     margin-bottom: 20px;
 }
 
@@ -228,6 +240,7 @@ footer{
 
 .card>div:first-child{
     display: flex;
+    align-items: center;
 }
 
 .check-mark{
@@ -236,30 +249,6 @@ footer{
 
 .card img{
     cursor: pointer;
-}
-
-.card>input{
-    background-color: unset;
-    border: none;
-    cursor: pointer;
-    border: 1px solid red;
-    width: min-content;
-}
-.card>textarea{
-    background-color: unset;
-    border: none;
-    cursor: pointer;
-    width: min-content;
-    height: max-content;
-    resize: none;
-}
-
-.card>input:focus{
-    outline: none;
-}
-
-.card>textarea:first-of-type{
-   margin-top: -30px;
 }
 
 .mark-as-read{

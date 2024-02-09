@@ -37,6 +37,30 @@ let numberOfBooksInLibrary = 0;
 
 const exampleLibraryArray = [
     {
+        title: "Madame Bovary",
+        author: 'Gustave Flaubert',
+        rating: 2,
+        read: true,
+    },
+    {
+        title: "Alice's Adventures in Wonderland",
+        author: 'Lewis Carroll',
+        rating: 4,
+        read: true,
+    },
+    {
+        title: 'Kidnapped',
+        author: 'Robert Louis Stevenson',
+        rating: 3,
+        read: true,
+    },
+    {
+        title: 'Greyfriars Bobby',
+        author: 'Eleanor Atkinson',
+        rating: 0,
+        read: false,
+    },
+    {
         title: 'Wuthering Heights',
         author: 'Emily bronte',
         rating: 0,
@@ -236,7 +260,8 @@ function renderBook(book){
 
     const authorDiv = document.createElement('div');
     authorDiv.classList.add('font-size-small', 'faded');
-    authorDiv.textContent = book.author;
+    if(authorDiv.textContent == '') authorDiv.textContent = ' Unknown ';
+    else authorDiv.textContent = book.author;
 
     card.appendChild(titleDiv);
     card.appendChild(authorDiv);
