@@ -260,7 +260,7 @@ function renderBook(book){
 
     const authorDiv = document.createElement('div');
     authorDiv.classList.add('font-size-small', 'faded');
-    if(authorDiv.textContent == '') authorDiv.textContent = ' Unknown ';
+    if(book.author == '') authorDiv.textContent = ' Unknown ';
     else authorDiv.textContent = book.author;
 
     card.appendChild(titleDiv);
