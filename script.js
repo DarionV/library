@@ -7,6 +7,8 @@ const form = document.querySelector('form');
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
 const hasReadRadioButton = document.querySelector('#radio-yes');
+const emptyLibraryContainer = document.querySelector('.js-empty-message');
+const addFirstBookButton = document.querySelector('.js-add-first-book-btn');
 
 const star1 = document.querySelector('#star-1');
 const star2 = document.querySelector('#star-2');
@@ -30,6 +32,7 @@ const PURPLE = '#B17ACB';
 const RED = '#CB7A7A';
 let colorIndex = 0;
 
+let numberOfBooksInLibrary = 0;
 
 const myLibrary = [];
 const colors = [BLUE, ORANGE, GREEN, PURPLE, YELLOW, RED];
@@ -38,6 +41,22 @@ function getColor(){
     if(colorIndex >= colors.length) colorIndex = 0;
     colorIndex ++;
     return colors[colorIndex];
+}
+
+function checkIfEmptyLibrary(){
+    if(numberOfBooksInLibrary === 0){
+        showEmptyMessage();
+    }
+}
+
+function showEmptyMessage(){
+    emptyLibraryContainer.classList.remove('hidden');
+    hideAddBookButton();
+}
+
+function hideEmptyMessage(){
+    emptyLibraryContainer.classList.add('hidden');
+    showAddBookButton();
 }
 
 
@@ -80,10 +99,14 @@ for (let i = 1; i <= MAX_RATING; i++){
 }
 
 updateStars();
+hideModal();
+hideAddBookButton();
 
 deleteButton.addEventListener('click', hideModal);
 
 addBookButton.addEventListener('click', showModal);
+
+addFirstBookButton.addEventListener('click', showModal);
 
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -91,6 +114,14 @@ form.addEventListener('submit',(e)=>{
     renderBook(newBook);
     hideModal();
 });
+
+function hideAddBookButton(){
+    addBookButton.style.visibility = 'hidden'
+}
+
+function showAddBookButton(){
+    addBookButton.style.visibility = 'visible'
+}
 
 function hideModal(){
     modal.style.visibility = 'hidden';
@@ -227,7 +258,11 @@ for (let i = 1; i <= MAX_RATING; i++){
 
     deleteDiv.addEventListener('click', ()=>{
         libraryContainer.removeChild(card);
+        numberOfBooksInLibrary --;
+        checkIfEmptyLibrary();
     })
 
+    hideEmptyMessage();
+    numberOfBooksInLibrary ++;
     
 }
