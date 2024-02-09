@@ -194,6 +194,7 @@ footer{
 }
 
 .card{
+    position: relative;
     border: 2.5px solid #7AA4CB;
     width: 100%;
     max-width: 350px;
@@ -237,6 +238,22 @@ footer{
     cursor: pointer;
 }
 
+.card>input{
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    /* border: 1px solid red; */
+    width: min-content;
+}
+
+.card>input:focus{
+    outline: none;
+}
+
+.card>input:first-of-type{
+   margin-top: -30px;
+}
+
 .mark-as-read{
     position: absolute;
     width: max-content;
@@ -260,6 +277,7 @@ footer{
     display: flex;
     flex-direction: column;
     padding: 28px;
+    z-index: 10;
     /* gap: 18px; */
 }
 

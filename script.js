@@ -107,15 +107,18 @@ function renderBook(book){
     const card = document.createElement('div');
     card.classList.add('card');
 
-    const titleDiv = document.createElement('div');
-    titleDiv.classList.add('bold');
-    titleDiv.textContent = book.title;
+    const titleDiv = document.createElement('input');
+    titleDiv.value = book.title;
+    titleDiv.classList.add('bold', 'font-size-regular');
+    titleDiv.setAttribute('onclick', 'this.select()');
 
     const checkMark = document.createElement('img');
     if(book.read) checkMark.src = "images/check_green.svg";
     else checkMark.src = "images/check_gray.svg";
     checkMark.width = 32;
     checkMark.height = 32;
+
+    const checkMarkDiv = document.createElement('div');
 
     checkMark.classList.add('check-mark');
     checkMark.addEventListener('click', ()=>{
@@ -136,11 +139,13 @@ function renderBook(book){
     checkMark.addEventListener('mouseleave',()=>{
         markAsReadBox.style.visibility = "hidden";
     })
-    titleDiv.appendChild(checkMark);
+    checkMarkDiv.appendChild(checkMark);
+    card.appendChild(checkMarkDiv);
 
-    const authorDiv = document.createElement('div');
+    const authorDiv = document.createElement('input');
     authorDiv.classList.add('font-size-small', 'faded');
-    authorDiv.textContent = book.author;
+    authorDiv.setAttribute('onclick', 'this.select()');
+    authorDiv.value = book.author;
 
     card.appendChild(titleDiv);
     card.appendChild(authorDiv);
