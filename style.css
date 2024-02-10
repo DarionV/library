@@ -29,6 +29,7 @@ body{
 }
 .title-container div{
     flex: 1;
+    padding-top: 48px;
 }
 
 .title-container div:last-child {
@@ -58,7 +59,7 @@ body{
 
 .content{
     /* border: 1px solid rgb(13, 136, 91); */
-    height: calc(100vh - var(--headerHeight) * 2);
+    height: calc(100vh - var(--headerHeight));
     width: 70vw;
     display: flex;
     flex-direction: column;
@@ -263,6 +264,18 @@ footer{
     visibility: hidden;
 }
 
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: rgba(255, 0, 0, 0.271);
+}
+
+
+
 .modal{
     position: absolute;
     top: 27%;
@@ -277,6 +290,17 @@ footer{
     z-index: 10;
     /* gap: 18px; */
 }
+
+/* .modal::after{
+    content: "test";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: rgba(255, 0, 0, 0.271);
+} */
 
 .modal>input{
     border-top: none;
