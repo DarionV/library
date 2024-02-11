@@ -27,6 +27,10 @@ function Book(title, author, rating, readStatus) {
     this.rating = rating;
     this.read = readStatus;
     this.color = getColor();
+
+    this.toggleReadStatus = function (){
+        this.read ? this.read = false : this.read = true;
+    }
 }
 
 Book.prototype.render = function (){
@@ -148,10 +152,6 @@ function resetModalStars(){
     });
 }
 
-function toggleHasReadStatus(book){
-    book.read ? book.read = false : book.read = true;
-}
-
 function updateToolTipText(book){
     if(book.read) markAsReadBox.textContent = 'Mark as unread';
     else markAsReadBox.textContent = 'Mark as read';
@@ -189,7 +189,7 @@ function createCheckmark(book, size){
     checkMark.classList.add('check-mark');
 
     checkMark.addEventListener('click', ()=>{
-        toggleHasReadStatus(book);
+        book.toggleReadStatus();
         if(book.read) checkMark.src = "images/check_green.svg";
         else checkMark.src = "images/check_gray.svg";
         updateToolTipText(book);
