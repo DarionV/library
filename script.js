@@ -6,7 +6,7 @@ const addBookButton = document.querySelector('.js-add-book-btn');
 const form = document.querySelector('form');
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
-const hasReadRadioButton = document.querySelector('#radio-yes');
+const hasReadCheckbox = document.querySelector('#checkbox-has-read');
 const emptyLibraryContainer = document.querySelector('.js-empty-message');
 const addFirstBookButton = document.querySelector('.js-add-first-book-btn');
 const exampleButton = document.querySelector('.js-example-button');
@@ -182,7 +182,7 @@ addFirstBookButton.addEventListener('click', showModal);
 
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
-    const newBook = new Book(titleInput.value, authorInput.value, selectedRating, hasReadRadioButton.checked);
+    const newBook = new Book(titleInput.value, authorInput.value, selectedRating, hasReadCheckbox.checked);
     renderBook(newBook);
     hideModal();
 });
@@ -204,19 +204,19 @@ function showModal(){
     authorInput.value = "";
     titleInput.value = "";
     
-    hasReadRadioButton.checked = true;
+    hasReadCheckbox.checked = true;
     const stars = starContainer.childNodes;
     stars.forEach((star)=>{
         star.classList.add('no-rating');
     });
     modal.style.visibility = 'visible';
     titleInput.focus();
+    hasReadCheckbox.checked = false;
 }
 
 
 function toggleHasReadStatus(book){
     book.read ? book.read = false : book.read = true;
-    console.log(book.read);
 }
 
 function updateToolTipText(book){
