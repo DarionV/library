@@ -1,7 +1,7 @@
 import { exampleLibraryArray, colors } from "./data.js";
 
 const libraryContainer = document.querySelector('.js-grid-container');
-const markAsReadBox = document.querySelector('.js-mark-as-read');
+const toolTip = document.querySelector('.js-tooltip');
 const modal = document.querySelector('.js-modal');
 const deleteButton = document.querySelector('.js-delete-btn');
 const addBookButton = document.querySelector('.js-add-book-btn');
@@ -15,7 +15,7 @@ const exampleButton = document.querySelector('.js-example-button');
 const starContainer = document.querySelector('.star-container');
 
 const MAX_RATING = 5;
-const MARK_READ_OFFSET = 32;
+const TOOLTIP_Y_OFFSET = 32;
 
 let selectedRating = 0;
 let numberOfBooksInLibrary = 0;
@@ -25,11 +25,11 @@ function Book(title, author, rating, readStatus) {
     this.title = title;
     this.author = author;
     this.rating = rating;
-    this.read = readStatus;
+    this.hasRead = readStatus;
     this.color = getColor();
 
     this.toggleReadStatus = function (){
-        this.read ? this.read = false : this.read = true;
+        this.hasRead ? this.hasRead = false : this.hasRead = true;
     }
 }
 
@@ -41,8 +41,8 @@ Book.prototype.render = function (){
     titleDiv.textContent = this.title;
     titleDiv.classList.add('bold', 'font-size-regular');
 
-    const checkMark = createCheckmark(this, 32);
-    titleDiv.appendChild(checkMark);
+    const checkmark = new Checkmark(this);
+    titleDiv.appendChild(checkmark.render());
 
     const authorDiv = document.createElement('div');
     authorDiv.classList.add('font-size-small', 'faded');
@@ -53,7 +53,6 @@ Book.prototype.render = function (){
 
     const container = document.createElement('div');
     generateStars(32, container);
-
     card.appendChild(container);
 
     const deleteDiv = createDeleteButton(card);
@@ -65,14 +64,14 @@ Book.prototype.render = function (){
 
     numberOfBooksInLibrary ++;
     if(numberOfBooksInLibrary === 1)  libraryContainer.appendChild(card);
-    else  libraryContainer.prepend(card);
+    else libraryContainer.prepend(card);
     
 }
 
-function Star(size, array){
+function Star(starSize, array){
     this.src = 'images/star_gold.svg';
-    this.height = size;
-    this.width = size;
+    this.height = starSize;
+    this.width = starSize;
     this.rating = 0;
     this.img = document.createElement('img');
     this.img.classList.add('star');
@@ -93,11 +92,11 @@ Star.prototype.render = function(){
     return this.img;
 }
 
-function generateStars(size, container){
+function generateStars(starSize, container){
     const starArray = [];
 
     for (let i = 1; i <= MAX_RATING; i++){
-        const newStar = new Star(size, starArray);
+        const newStar = new Star(starSize, starArray);
 
         if(i === selectedRating) newStar.img.classList.add('gold');
         if(selectedRating === 0) newStar.img.classList.add('no-rating');
@@ -152,14 +151,14 @@ function resetModalStars(){
     });
 }
 
-function updateToolTipText(book){
-    if(book.read) markAsReadBox.textContent = 'Mark as unread';
-    else markAsReadBox.textContent = 'Mark as read';
+function updateToolTipText(hasRead){
+    if(hasRead) toolTip.textContent = 'Mark as unread';
+    else toolTip.textContent = 'Mark as read';
 }
 
 function loadExampleLibrary(){
     exampleLibraryArray.forEach((book)=>{
-        const newBook = new Book(book.title, book.author, book.rating, book.read);
+        const newBook = new Book(book.title, book.author, book.rating, book.hasRead);
         selectedRating = book.rating;
         newBook.render();
     });
@@ -177,38 +176,42 @@ function createDeleteButton(card){
     return deleteDiv;
 }
 
-function createCheckmark(book, size){
-    const checkMark = document.createElement('img');
+function Checkmark(book){
+    this.checkmark = document.createElement('div');
+    this.checkmark.classList.add('check-mark');
+    if(book.hasRead) this.checkmark.classList.add('checked');
 
-    if(book.read) checkMark.src = "images/check_green.svg";
-    else checkMark.src = "images/check_gray.svg";
+    this.toggleCheckmark = function(){
+        this.checkmark.classList.toggle('checked');
+    }
 
-    checkMark.width = size;
-    checkMark.height = size;
-
-    checkMark.classList.add('check-mark');
-
-    checkMark.addEventListener('click', ()=>{
+    this.checkmark.addEventListener('click', ()=>{
         book.toggleReadStatus();
-        if(book.read) checkMark.src = "images/check_green.svg";
-        else checkMark.src = "images/check_gray.svg";
-        updateToolTipText(book);
+        this.toggleCheckmark();
+        updateToolTipText(book.hasRead);
     });
 
-    checkMark.addEventListener('mouseover',()=>{
-        markAsReadBox.style.visibility = "visible";
-        const rect = checkMark.getBoundingClientRect();
-        const markReadRect = markAsReadBox.getBoundingClientRect();
-        markAsReadBox.style.left = rect.left + rect.width / 2 - markReadRect.width / 2 + 'px';
-        markAsReadBox.style.top = rect.top - MARK_READ_OFFSET  + 'px';
-        updateToolTipText(book);     
+    this.checkmark.addEventListener('mouseover',()=>{
+        showTooltip(this.checkmark.getBoundingClientRect());
+        updateToolTipText(book.hasRead);     
     })
     
-    checkMark.addEventListener('mouseleave',()=>{
-        markAsReadBox.style.visibility = "hidden";
-    })
+    this.checkmark.addEventListener('mouseleave', hideTooltip);
+}
 
-    return checkMark;
+Checkmark.prototype.render = function(){
+    return this.checkmark;
+}
+
+function showTooltip(checkmarkRect){
+    toolTip.style.visibility = "visible";
+    const tooltipRect = toolTip.getBoundingClientRect();
+    toolTip.style.left = checkmarkRect.left + checkmarkRect.width / 2 - tooltipRect.width / 2 + 'px';
+    toolTip.style.top = checkmarkRect.top - TOOLTIP_Y_OFFSET  + 'px';
+}
+
+function hideTooltip(){
+    toolTip.style.visibility = "hidden";
 }
 
 function getColor(){
