@@ -357,3 +357,7 @@ footer{
 .star.no-rating {
     content: url(images/star.svg);
 }
+a{
+    text-decoration: none;
+    color: unset;
+}
