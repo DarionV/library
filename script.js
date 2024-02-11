@@ -69,13 +69,9 @@ function Star(size, array){
     this.src = 'images/star_gold.svg';
     this.height = size;
     this.width = size;
-    this.rating = 4;
+    this.rating = 0;
     this.img = document.createElement('img');
     this.img.classList.add('star');
-
-    this.turnOff = function(){
-        this.img.classList.add('no-rating');
-    }
 
     this.img.addEventListener('click', ()=>{
         updateStars(array);
@@ -163,8 +159,9 @@ function updateToolTipText(book){
 
 function loadExampleLibrary(){
     exampleLibraryArray.forEach((book)=>{
-        const newBoook = new Book(book.title, book.author, book.rating, book.read);
-        newBoook.render();
+        const newBook = new Book(book.title, book.author, book.rating, book.read);
+        selectedRating = book.rating;
+        newBook.render();
     });
 }
 
