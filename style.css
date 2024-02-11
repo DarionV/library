@@ -6,7 +6,6 @@
 :root{
     font-size: 18px;
     --headerHeight: 60px;
-    /* --titleContainerHeight: 14vh; */
     --textColorBlack: #282828;
 }
 
@@ -21,12 +20,11 @@ body{
 
 .title-container{
     display: flex;
-    /* height: var(--titleContainerHeight); */
     flex: 1;
     align-items: end;
     margin-bottom: 40px;
-    /* border: 2px solid green; */
 }
+
 .title-container div{
     flex: 1;
     padding-top: 48px;
@@ -58,28 +56,10 @@ body{
 }
 
 .content{
-    /* border: 1px solid rgb(13, 136, 91); */
     height: calc(100vh - var(--headerHeight));
     width: 70vw;
     display: flex;
     flex-direction: column;
-}
-
-header{
-    height: var(--headerHeight);
-    width: 100vw;
-    display: flex;
-    justify-content: end;
-    padding-right: 60px;
-}
-
-.theme-btn{
-    border: none;
-    background-color: unset;
-    cursor: pointer;
-    margin: 0px 12px;
-    font-weight: 400;
-    font-size: 0.8rem;
 }
 
 footer{
@@ -99,13 +79,11 @@ footer{
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: 3px solid green; */
     height: 70vh;
 }
 
 .empty-message-container div {
     flex: 1;
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,19 +110,6 @@ footer{
 .font-size-small{
     font-size: 0.8rem;
     font-weight: 400;
-}
-
-
-
-.circle-add-btn{
-    background-image: url(images/plus-circle.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: unset;
-    border: none;
-    height: 48px;
-    margin-top: 12px;
-    cursor: pointer;
 }
 
 .add-first-book-btn{
@@ -186,8 +151,6 @@ footer{
 }
 
 .grid-container{
-    /* margin-top: 64px; */
-    /* border: 1px solid red; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: min-content;
@@ -210,24 +173,7 @@ footer{
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.22);
 }
 
-/* .card:last-of-type{
-    justify-self: start;
-}
-.card:first-of-type{
-    justify-self: end;
-}
-.card:only-of-type{
-    justify-self: center;
-} */
-
-
-/* .card:hover{
-    scale: 101%;
-    cursor: pointer;
-} */
-
 .card div:nth-child(2){
-    /* margin-top: -6px; */
     margin-bottom: 20px;
 }
 
@@ -263,18 +209,6 @@ footer{
     padding: 6px;
     visibility: hidden;
 }
-
-.overlay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 2;
-    background-color: rgba(255, 0, 0, 0.271);
-}
-
-
 
 .modal{
     position: absolute;
@@ -330,10 +264,6 @@ footer{
     margin-top: 12px;
     margin-bottom: 24px;
 }
-
-/* .modal img.gold, img.selected-rating{
-    content: url(images/star_gold.svg);
-} */
 
 .checkbox{
     margin-bottom: 42px;
