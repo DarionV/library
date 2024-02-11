@@ -239,6 +239,6 @@ function updateStars(array){
     })
 }
 
-generateStars(32, starContainer);
+generateStars(42, starContainer);
 hideModal();
 checkIfEmptyLibrary();

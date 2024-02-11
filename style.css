@@ -347,7 +347,6 @@ footer{
 
 .star-container{
     height: min-content;
-    width: 180px;
 }
 
 .star.gold ~ img{
